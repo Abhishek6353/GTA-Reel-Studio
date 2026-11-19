@@ -1,109 +1,262 @@
-# GTA Reel Studio 🎮
+<div align="center">
 
-An AI-powered GTA V gameplay editor for Google Antigravity. Turn long gameplay recordings into engaging, ready-to-review Instagram Reels, YouTube Shorts and TikTok videos using a reusable agent skill and local video-processing tools.
+# GTA Reel Studio
+
+**AI-assisted highlight detection and automated short-form video editing for GTA V gameplay.**
+
+Convert long gameplay recordings into ready-to-review vertical videos for Instagram Reels, YouTube Shorts, and TikTok.
+
+![Platform](https://img.shields.io/badge/Platform-Google%20Antigravity-4285F4)
+![Python](https://img.shields.io/badge/Processing-Python-3776AB?logo=python&logoColor=white)
+![FFmpeg](https://img.shields.io/badge/Video-FFmpeg-007808?logo=ffmpeg&logoColor=white)
+![Output](https://img.shields.io/badge/Output-1080%20%C3%97%201920-111827)
+![Workflow](https://img.shields.io/badge/Workflow-Local--first-16A34A)
+
+[Overview](#overview) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Troubleshooting](#troubleshooting)
+
+</div>
+
+---
+
+## Overview
+
+GTA Reel Studio is a reusable agent skill for Google Antigravity that analyzes long GTA V gameplay recordings, identifies compelling moments, and produces short-form video content through a locally executed editing pipeline.
+
+The skill combines speech transcription, audio signals, visual analysis, and editorial scoring to identify moments with strong hooks, authentic reactions, meaningful context, and entertaining payoffs.
+
+The repository intentionally contains only the skill and project documentation. Processing scripts, dependencies, analysis artifacts, and video files are generated locally when required.
 
 ## Features
 
-- Analyze the full recording for funny moments, rage, excitement, close calls, stunts and mission highlights.
-- Combine commentary, speech timestamps, audio energy and visual evidence to rank highlights.
-- Automatically select and edit the best 30–60 second clips.
-- Reframe gameplay intelligently into 9:16, including facecam layouts when available.
-- Add short hooks, synchronized subtitles, covers, captions and hashtags.
-- Render and verify 1080 × 1920 MP4 videos using FFmpeg.
-- Set up missing free dependencies, reuse previous analysis and preserve original recordings.
+| Capability | Description |
+| --- | --- |
+| Intelligent highlight detection | Detects funny moments, excitement, frustration, stunts, close calls, mission outcomes, and unexpected gameplay events. |
+| Multimodal analysis | Combines timestamped transcripts, audio energy, visual evidence, and facecam reactions where available. |
+| Editorial ranking | Scores candidate clips using hook strength, emotion, surprise, narrative quality, readability, and shareability. |
+| Automated editing | Selects suitable 30–60 second segments and adjusts pacing, framing, and audio. |
+| Vertical composition | Preserves important gameplay through intelligent cropping, fitted layouts, or facecam composition. |
+| Captions and hooks | Generates synchronized subtitles and concise opening hooks while preserving the original language. |
+| Publishing assets | Produces video covers, captions, relevant hashtags, and clip reports. |
+| Quality assurance | Verifies output format, duration, playback, and visual/audio quality where supported. |
+| Local-first processing | Preserves original recordings and reuses existing analysis to reduce repeated work. |
 
-## Getting started
+## Quick Start
+
+### Prerequisites
+
+- Google Antigravity with access to a compatible agent model and terminal execution.
+- Git and access to this private repository.
+- Sufficient local disk space for source recordings, analysis, and rendered clips.
+- Permission to install missing free dependencies and download local speech recognition models.
+
+Python, FFmpeg, and additional processing dependencies are detected and configured by the agent when possible. Installation requirements vary by operating system.
 
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Abhishek6353/GTA-Reel-Studio.git
 cd GTA-Reel-Studio
+```
+
+### 2. Add gameplay recordings
+
+Create the `input/` directory and place your gameplay files inside it.
+
+```bash
 mkdir input
 ```
 
-The repository is private, so authenticate with a GitHub account that has access.
+Supported input formats include MP4, MOV, MKV, and WEBM, subject to local codec support.
 
-### 2. Add your gameplay
+### 3. Open the workspace
 
-Place your own gameplay recordings inside `input/`. Common supported formats include MP4, MOV, MKV and WEBM.
+Open the cloned `GTA-Reel-Studio` directory in Antigravity.
 
-### 3. Open in Antigravity
+The agent skill is located at [`.agents/skills/gta-reel-editor/SKILL.md`](.agents/skills/gta-reel-editor/SKILL.md).
 
-Open the `GTA-Reel-Studio` folder as a workspace in Google Antigravity. The skill is located at `.agents/skills/gta-reel-editor/SKILL.md`.
+### 4. Run the skill
 
-Paste the following prompt into the agent:
+Send the following prompt to Antigravity:
 
-> Use the gta-reel-editor skill. Automatically set up missing dependencies, analyze the gameplay videos in input/, and generate up to 5 high-quality, distinct 30–60 second vertical reels. Use quality mode, preserve my original commentary, add accurate subtitles and verify the final exports. Execute the complete workflow, not just a plan.
+```text
+Use the gta-reel-editor skill.
 
-Approve any required installation or terminal permissions when prompted. External API uploads and paid services are not required by default.
+Process the gameplay videos in input/ using quality mode.
+Set up any missing free dependencies, analyze the entire recording,
+and generate up to 5 high-quality, distinct 30–60 second vertical reels.
 
-### 4. Review the results
+Preserve my original commentary, add accurate subtitles and engaging
+hooks, and intelligently reframe the gameplay into 9:16.
 
-Find the generated videos and supporting files inside `output/`. Review each reel before publishing.
+Render and verify the final videos. Execute the complete workflow.
+```
 
-## Example prompts
+Approve required installation or terminal permissions when prompted. The first run may take longer because tools, models, and processing scripts may need to be initialized.
 
-| Mode | Prompt |
+### 5. Review the exports
+
+The final videos and associated publishing assets are saved under `output/`. Review the generated clips before uploading them.
+
+## Usage
+
+Once configured, invoke the skill with a short prompt for each new recording.
+
+| Mode | Description | Example prompt |
+| --- | --- | --- |
+| Standard | Full analysis, ranking, rendering, and verification. | `Use gta-reel-editor. Process the new video in input/.` |
+| Quality | Deeper visual inspection, refined captions, framing, and timing. | `Use gta-reel-editor in quality mode. Generate the best 5 reels.` |
+| Fast | Reduced analysis overhead and up to three clips. | `Use gta-reel-editor in fast mode.` |
+| Analysis only | Ranked candidates and previews without final video rendering. | `Use gta-reel-editor. Analyze the footage without rendering.` |
+
+Customize the workflow through natural-language instructions:
+
+```text
+Use gta-reel-editor in quality mode.
+Generate the best 3 reels, 35–45 seconds each.
+Preserve my Hindi/Hinglish commentary and use Roman Hindi captions.
+Prioritize funny fails, unexpected events, and emotional reactions.
+```
+
+The skill can also accept preferences for caption style, branding, facecam layout, audio, clip count, and duration.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A["Source gameplay"] --> B["Media probe and preprocessing"]
+    B --> C["Speech and audio analysis"]
+    B --> D["Visual and scene analysis"]
+    C --> E["Candidate selection and scoring"]
+    D --> E
+    E --> F["Clip editing and vertical composition"]
+    F --> G["FFmpeg rendering"]
+    G --> H["Quality verification and export"]
+```
+
+### Highlight scoring
+
+| Criterion | Weight |
+| --- | ---: |
+| Surprise, humor, skill, or unusual payoff | 25 |
+| Opening hook | 20 |
+| Creator emotion or gameplay tension | 20 |
+| Narrative and payoff | 15 |
+| Mobile readability | 10 |
+| Shareability and replay quality | 10 |
+| **Total** | **100** |
+
+The default selection threshold is 75/100. Scores are editorial heuristics, not predictions of view counts. The agent may return fewer clips when suitable highlights are unavailable.
+
+### Technology stack
+
+| Component | Technology |
 | --- | --- |
-| Standard | Use gta-reel-editor. Process the new gameplay video in input/. |
-| Quality | Use gta-reel-editor in quality mode. Create the best 5 reels with polished captions and intelligent cropping. |
-| Fast | Use gta-reel-editor in fast mode. Generate up to 3 reels. |
-| Analysis only | Use gta-reel-editor. Identify and rank highlights without rendering videos. |
-| Hindi/Hinglish | Generate the best 3 reels, preserving my Hindi/Hinglish commentary and using Roman Hindi captions. |
+| Agent orchestration | Google Antigravity |
+| AI analysis | Compatible multimodal agent model |
+| Video processing | FFmpeg and FFprobe |
+| Speech recognition | Faster Whisper or compatible local ASR |
+| Automation | Python |
+| Frame analysis | OpenCV or equivalent, when needed |
 
-## Project structure
+## Project Structure
 
 ```text
 GTA-Reel-Studio/
-├── .agents/skills/gta-reel-editor/
-│   └── SKILL.md            # Reusable agent instructions (tracked)
-├── .gitignore              # Repository exclusions (tracked)
-├── README.md               # Documentation (tracked)
-├── input/                  # Source gameplay (local only)
-├── output/                 # Finished reels and metadata (local only)
-├── work/                   # Analysis and temporary files (local only)
-├── scripts/                # Generated processing scripts (local only)
-└── .venv/                  # Python environment, if needed (local only)
+├── .agents/
+│   └── skills/
+│       └── gta-reel-editor/
+│           └── SKILL.md        # Agent skill definition
+├── .gitignore                  # Repository exclusions
+├── README.md                   # Project documentation
+├── input/                      # Source recordings (local)
+├── output/                     # Rendered clips and reports (local)
+├── work/                       # Analysis data and cache (local)
+├── scripts/                    # Generated automation scripts (local)
+└── .venv/                      # Python environment, if needed (local)
 ```
 
-Antigravity creates the processing folders and scripts as needed. The repository intentionally tracks only the skill and documentation, not videos, models, environments, generated scripts or credentials.
+Only `SKILL.md`, `.gitignore`, and `README.md` are version-controlled. All processing directories are local and may be created automatically by the agent.
 
-## Processing tools
+## Output Format
 
-| Tool | Purpose |
+| Parameter | Default |
 | --- | --- |
-| Google Antigravity | Workflow execution and AI analysis |
-| FFmpeg / FFprobe | Video editing, rendering and verification |
-| Faster Whisper or compatible local ASR | Timestamped speech transcription |
-| Python / OpenCV | Automation and visual frame analysis as needed |
+| Resolution | 1080 × 1920 |
+| Aspect ratio | 9:16 |
+| Clip duration | 30–60 seconds |
+| Video codec | H.264 |
+| Audio codec | AAC |
+| Container | MP4 |
+| Frame rate | 30 or 60 FPS, when suitable |
+| Subtitles | Burned-in when commentary is present |
+| Language | Original recording language |
 
-The skill detects missing dependencies and attempts to configure free local tools. Availability, installation steps and processing speed depend on your operating system, hardware and permissions. Visual analysis capability depends on the selected model and tools.
+A typical output directory may contain:
 
-## Output
+```text
+output/<source-id>/
+├── 01-highlight.mp4
+├── 01-highlight.jpg
+├── 01-highlight.srt
+├── 01-highlight.txt
+├── REPORT.md
+└── manifest.json
+```
 
-Each source recording gets its own output directory with ranked MP4 reels, JPEG covers, subtitles when speech is present, posting captions and hashtags, and an analysis report with timestamps, scores and quality checks.
+Each reel includes its source timestamps, selection rationale, and review status in the report. Subtitle files are generated when speech is present.
 
-Default reel format: **1080 × 1920 · 9:16 · 30–60 seconds · H.264 MP4 · AAC audio**.
+## Updating
 
-## Tips for better reels
-
-- Use original high-resolution gameplay recordings.
-- Record microphone and game audio on separate tracks whenever possible.
-- Disable in-game radio to reduce music copyright concerns.
-- Prefer a few genuinely strong highlights over many average clips.
-- Review the final reels, captions, rights flags and suggested hashtags before posting.
-
-## Updates on another PC
-
-If the repository is already cloned, open its directory and run:
+To use the latest version of the skill on an existing installation:
 
 ```bash
-git pull
+git pull origin main
 ```
 
-Then add new gameplay to `input/` and run the skill again. To verify what Git tracks, use `git ls-files`.
+Open the workspace in Antigravity, add new recordings to `input/`, and invoke the skill again.
 
-## Notes
+Check the files tracked by Git with:
 
-This project is a local-first, agent-driven editing workflow, not a guaranteed viral-video predictor or an automatic Instagram publisher. Use footage you own or are authorized to edit and publish. Always review generated content before uploading.
+```bash
+git ls-files
+```
+
+Do not commit recordings, rendered clips, environments, model files, intermediate artifacts, or API credentials.
+
+## Troubleshooting
+
+| Issue | Resolution |
+| --- | --- |
+| Skill is not detected | Confirm that the repository root is open in Antigravity and the skill is in the correct `.agents/skills/` directory. |
+| FFmpeg is unavailable | Allow the agent to install it using a trusted package manager, or install it manually and rerun the skill. |
+| No highlights are selected | Check whether the source contains suitable moments. Try quality mode or request analysis-only results. |
+| Transcription is inaccurate | Provide clearer microphone audio or request a more capable local transcription model. |
+| Gameplay is cropped incorrectly | Request a fitted layout or more conservative cropping and rerender the affected clip. |
+| Processing is slow | Use fast mode, shorter recordings, or suitable hardware acceleration. |
+| Visual analysis is unavailable | Review the agent's reported limitations and manually inspect the selected candidates before publishing. |
+
+## Best Practices
+
+- Prefer original, high-resolution footage over compressed downloads.
+- Record commentary and game audio on separate tracks whenever possible.
+- Avoid copyrighted background music and review in-game radio audio.
+- Prioritize strong, distinct moments over a fixed number of clips.
+- Review subtitles, framing, and rights or sensitivity flags before publishing.
+
+## Limitations and Responsible Use
+
+GTA Reel Studio is an agent-driven workflow rather than a standalone video editing application. Results depend on the quality of the recording, available model capabilities, installation permissions, and system performance. Viral performance is not guaranteed.
+
+Use only footage and audio you are authorized to edit and publish. The skill does not publish videos or upload source media to external services without explicit authorization.
+
+## Maintainer
+
+[Abhishek Kurmi](https://github.com/Abhishek6353)
+
+---
+
+<div align="center">
+
+Built for creators who want to spend more time playing and less time editing.
+
+</div>
