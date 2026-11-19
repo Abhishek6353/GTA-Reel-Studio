@@ -46,6 +46,30 @@ The repository intentionally contains only the skill and project documentation. 
 
 ## Quick Start
 
+### Option A — Install with Skills.sh (recommended for existing workspaces)
+
+Install the skill directly into an existing Antigravity workspace using the [Skills CLI](https://skills.sh/). This requires a compatible Node.js installation (22.20 or later), plus `npm`/`npx`.
+
+Open a terminal in your workspace and run:
+
+```bash
+npx skills add Abhishek6353/GTA-Reel-Studio --skill gta-reel-editor -a antigravity
+```
+
+To inspect the available skill before installing:
+
+```bash
+npx skills add Abhishek6353/GTA-Reel-Studio --list
+```
+
+Review the skill and installation prompt before confirming. The CLI installs it at project scope by default. Open the workspace in Antigravity, create `input/`, add your gameplay recording, and follow the [run instructions](#4-run-the-skill) below.
+
+The Skills CLI also supports agents such as Codex and Claude Code. GTA Reel Studio has been used with Antigravity; other agent environments and GTA VI footage require independent workflow testing.
+
+### Option B — Clone the repository
+
+Use the following approach if you want a dedicated GTA Reel Studio workspace without the Skills CLI.
+
 ### Prerequisites
 
 - Google Antigravity with access to a compatible agent model and terminal execution.
@@ -215,7 +239,13 @@ Each reel includes its source timestamps, selection rationale, and review status
 
 ## Updating
 
-To use the latest version of the skill on an existing installation:
+For installations managed by the Skills CLI, run the following from your workspace:
+
+```bash
+npx skills update gta-reel-editor
+```
+
+For a cloned repository, use:
 
 ```bash
 git pull origin main
