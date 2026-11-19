@@ -4,6 +4,7 @@
 # Allow Git configuration
 !/.gitignore
 !/README.md
+!/LICENSE
 
 # Allow only the GTA reel editor skill
 !/.agents/

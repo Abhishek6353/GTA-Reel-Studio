@@ -12,8 +12,9 @@ Convert long gameplay recordings into ready-to-review vertical videos for Instag
 ![FFmpeg](https://img.shields.io/badge/Video-FFmpeg-007808?logo=ffmpeg&logoColor=white)
 ![Output](https://img.shields.io/badge/Output-1080%20%C3%97%201920-111827)
 ![Workflow](https://img.shields.io/badge/Workflow-Local--first-16A34A)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[Overview](#overview) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Troubleshooting](#troubleshooting)
+[Overview](#overview) · [Quick Start](#quick-start) · [Usage](#usage) · [Architecture](#architecture) · [Troubleshooting](#troubleshooting) · [License](#license)
 
 </div>
 
@@ -174,6 +175,7 @@ GTA-Reel-Studio/
 │           └── SKILL.md        # Agent skill definition
 ├── .gitignore                  # Repository exclusions
 ├── README.md                   # Project documentation
+├── LICENSE                     # MIT license
 ├── input/                      # Source recordings (local)
 ├── output/                     # Rendered clips and reports (local)
 ├── work/                       # Analysis data and cache (local)
@@ -181,7 +183,7 @@ GTA-Reel-Studio/
 └── .venv/                      # Python environment, if needed (local)
 ```
 
-Only `SKILL.md`, `.gitignore`, and `README.md` are version-controlled. All processing directories are local and may be created automatically by the agent.
+Only `SKILL.md`, `.gitignore`, `README.md`, and `LICENSE` are version-controlled. All processing directories are local and may be created automatically by the agent.
 
 ## Output Format
 
@@ -255,6 +257,10 @@ GTA Reel Studio is an agent-driven workflow rather than a standalone video editi
 
 Use only footage and audio you are authorized to edit and publish. This is an independent community project and is not affiliated with Rockstar Games or Take-Two Interactive. The skill does not publish videos or upload source media to external services without explicit authorization.
 
+## License
+
+GTA Reel Studio is licensed under the [MIT License](LICENSE). Copyright © 2026 Abhishek Kurmi. Third-party tools, models, game footage, and other external assets remain subject to their respective licenses and rights.
+
 ## Maintainer
 
 [Abhishek Kurmi](https://github.com/Abhishek6353)
@@ -266,4 +272,3 @@ Use only footage and audio you are authorized to edit and publish. This is an in
 Built for creators who want to spend more time playing and less time editing.
 
 </div>
-
