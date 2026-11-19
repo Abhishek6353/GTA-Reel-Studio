@@ -34,6 +34,7 @@ The repository intentionally contains only the skill and project documentation. 
 
 | Capability | Description |
 | --- | --- |
+| Optional YouTube URL import | Downloads permitted videos by link with yt-dlp, caches verified sources, and starts clipping automatically. |
 | Intelligent highlight detection | Detects funny moments, excitement, frustration, stunts, close calls, mission outcomes, and unexpected gameplay events. |
 | Multimodal analysis | Combines timestamped transcripts, audio energy, visual evidence, and facecam reactions where available. |
 | Editorial ranking | Scores candidate clips using hook strength, emotion, surprise, narrative quality, readability, and shareability. |
@@ -46,7 +47,9 @@ The repository intentionally contains only the skill and project documentation. 
 
 ## Quick Start
 
-### Option A — Install with Skills.sh (recommended for existing workspaces)
+> **Experimental feature branch:** URL import is available on `feature/youtube-download` for testing. The existing local-file workflow remains available. End-to-end download testing with authorized footage is required before merging into `main`.
+
+### Option A — Install the stable skill with Skills.sh (recommended for existing workspaces)
 
 Install the skill directly into an existing Antigravity workspace using the [Skills CLI](https://skills.sh/). This requires a compatible Node.js installation (22.20 or later), plus `npm`/`npx`.
 
@@ -84,6 +87,15 @@ Python, FFmpeg, and additional processing dependencies are detected and configur
 ```bash
 git clone https://github.com/Abhishek6353/GTA-Reel-Studio.git
 cd GTA-Reel-Studio
+```
+
+### Test the experimental YouTube branch
+
+For the URL import workflow, create a separate test clone of the feature branch (the default Skills.sh install still uses the stable branch):
+
+```bash
+git clone --branch feature/youtube-download --single-branch https://github.com/Abhishek6353/GTA-Reel-Studio.git GTA-Reel-Studio-YouTube
+cd GTA-Reel-Studio-YouTube
 ```
 
 ### 2. Add gameplay recordings
@@ -126,6 +138,18 @@ Approve required installation or terminal permissions when prompted. The first r
 The final videos and associated publishing assets are saved under `output/`. Review the generated clips before uploading them.
 
 ## Usage
+
+### Import from a YouTube URL (experimental)
+
+Open the feature-branch workspace in Antigravity and give the agent a link to a video you own or are permitted to download and edit:
+
+```text
+Use gta-reel-editor. Import my authorized YouTube gameplay recording:
+https://www.youtube.com/watch?v=VIDEO_ID
+Generate the best 5 reels in quality mode.
+```
+
+The optional importer checks permission, installs yt-dlp only with approval if needed, downloads up to 1080p by default, saves the verified source in `input/youtube/`, and continues the normal highlight analysis and vertical-video export. It can reuse verified downloads to avoid redundant fetching. No login, browser cookies, DRM bypass, playlists or active livestream downloads are supported. If a URL cannot be downloaded using a permitted method, export your own video from YouTube Studio or Google Takeout and use the original local workflow. Respect YouTube's terms and all content rights.
 
 Once configured, invoke the skill with a short prompt for each new recording.
 
@@ -185,6 +209,7 @@ The default selection threshold is 75/100. Scores are editorial heuristics, not 
 | Agent orchestration | Google Antigravity |
 | AI analysis | Compatible multimodal agent model |
 | Video processing | FFmpeg and FFprobe |
+| Optional URL import | yt-dlp (feature branch) |
 | Speech recognition | Faster Whisper or compatible local ASR |
 | Automation | Python |
 | Frame analysis | OpenCV or equivalent, when needed |
@@ -266,6 +291,7 @@ Do not commit recordings, rendered clips, environments, model files, intermediat
 | Issue | Resolution |
 | --- | --- |
 | Skill is not detected | Confirm that the repository root is open in Antigravity and the skill is in the correct `.agents/skills/` directory. |
+| YouTube import fails | Verify permissions and the single-video link; use an authorized local export if the importer cannot retrieve the source safely. |
 | FFmpeg is unavailable | Allow the agent to install it using a trusted package manager, or install it manually and rerun the skill. |
 | No highlights are selected | Check whether the source contains suitable moments. Try quality mode or request analysis-only results. |
 | Transcription is inaccurate | Provide clearer microphone audio or request a more capable local transcription model. |
