@@ -1,0 +1,15 @@
+# Ignore everything by default
+/*
+
+# Allow Git configuration
+!/.gitignore
+!/README.md
+
+# Allow only the GTA reel editor skill
+!/.agents/
+/.agents/*
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/gta-reel-editor/
+/.agents/skills/gta-reel-editor/*
+!/.agents/skills/gta-reel-editor/SKILL.md
