@@ -2,10 +2,11 @@
 
 # GTA Reel Studio
 
-**AI-assisted highlight detection and automated short-form video editing for GTA V gameplay.**
+**AI-assisted highlight detection and automated short-form video editing for GTA VI (GTA 6) gameplay, with GTA V support.**
 
 Convert long gameplay recordings into ready-to-review vertical videos for Instagram Reels, YouTube Shorts, and TikTok.
 
+![Game](https://img.shields.io/badge/Focus-GTA%20VI-7C3AED)
 ![Platform](https://img.shields.io/badge/Platform-Google%20Antigravity-4285F4)
 ![Python](https://img.shields.io/badge/Processing-Python-3776AB?logo=python&logoColor=white)
 ![FFmpeg](https://img.shields.io/badge/Video-FFmpeg-007808?logo=ffmpeg&logoColor=white)
@@ -20,9 +21,11 @@ Convert long gameplay recordings into ready-to-review vertical videos for Instag
 
 ## Overview
 
-GTA Reel Studio is a reusable agent skill for Google Antigravity that analyzes long GTA V gameplay recordings, identifies compelling moments, and produces short-form video content through a locally executed editing pipeline.
+GTA Reel Studio is a reusable agent skill for Google Antigravity that analyzes long Grand Theft Auto VI (GTA 6) and Grand Theft Auto V (GTA 5) gameplay recordings, identifies compelling moments, and produces short-form video content through a locally executed editing pipeline.
 
 The skill combines speech transcription, audio signals, visual analysis, and editorial scoring to identify moments with strong hooks, authentic reactions, meaningful context, and entertaining payoffs.
+
+The primary target is GTA VI content creation; the existing GTA V workflow remains supported. The same media-based analysis operates on authorized local recordings without game-specific APIs. GTA VI-specific behavior should be validated against actual gameplay footage before claiming end-to-end compatibility.
 
 The repository intentionally contains only the skill and project documentation. Processing scripts, dependencies, analysis artifacts, and video files are generated locally when required.
 
@@ -45,7 +48,7 @@ The repository intentionally contains only the skill and project documentation. 
 ### Prerequisites
 
 - Google Antigravity with access to a compatible agent model and terminal execution.
-- Git and access to this private repository.
+- Git and access to this public repository.
 - Sufficient local disk space for source recordings, analysis, and rendered clips.
 - Permission to install missing free dependencies and download local speech recognition models.
 
@@ -81,7 +84,7 @@ Send the following prompt to Antigravity:
 ```text
 Use the gta-reel-editor skill.
 
-Process the gameplay videos in input/ using quality mode.
+Process my GTA VI gameplay videos in input/ using quality mode.
 Set up any missing free dependencies, analyze the entire recording,
 and generate up to 5 high-quality, distinct 30–60 second vertical reels.
 
@@ -108,13 +111,16 @@ Once configured, invoke the skill with a short prompt for each new recording.
 | Fast | Reduced analysis overhead and up to three clips. | `Use gta-reel-editor in fast mode.` |
 | Analysis only | Ranked candidates and previews without final video rendering. | `Use gta-reel-editor. Analyze the footage without rendering.` |
 
+The skill adapts its analysis to the actual game footage. For GTA V recordings, simply specify GTA V (or let the agent identify the game from evidence). It does not assume a fixed GTA VI HUD or mission structure.
+
 Customize the workflow through natural-language instructions:
 
 ```text
 Use gta-reel-editor in quality mode.
 Generate the best 3 reels, 35–45 seconds each.
 Preserve my Hindi/Hinglish commentary and use Roman Hindi captions.
-Prioritize funny fails, unexpected events, and emotional reactions.
+Prioritize GTA VI funny fails, police chases, unexpected events,
+and emotional reactions. Avoid spoilers in titles and captions.
 ```
 
 The skill can also accept preferences for caption style, branding, facecam layout, audio, clip count, and duration.
@@ -247,7 +253,7 @@ Do not commit recordings, rendered clips, environments, model files, intermediat
 
 GTA Reel Studio is an agent-driven workflow rather than a standalone video editing application. Results depend on the quality of the recording, available model capabilities, installation permissions, and system performance. Viral performance is not guaranteed.
 
-Use only footage and audio you are authorized to edit and publish. The skill does not publish videos or upload source media to external services without explicit authorization.
+Use only footage and audio you are authorized to edit and publish. This is an independent community project and is not affiliated with Rockstar Games or Take-Two Interactive. The skill does not publish videos or upload source media to external services without explicit authorization.
 
 ## Maintainer
 
@@ -260,3 +266,4 @@ Use only footage and audio you are authorized to edit and publish. The skill doe
 Built for creators who want to spend more time playing and less time editing.
 
 </div>
+
